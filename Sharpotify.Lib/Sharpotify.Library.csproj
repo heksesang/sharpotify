@@ -55,6 +55,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnDns, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\DnDns.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -167,10 +171,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DnDns\DnDns.csproj">
-      <Project>{48CB1676-09B9-4408-8099-AEE2C225136C}</Project>
-      <Name>DnDns</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MentalisCryptography\MentalisCryptography.csproj">
       <Project>{7C28D157-0724-4B04-BCAE-4C5EF9E78F9D}</Project>
       <Name>MentalisCryptography</Name>

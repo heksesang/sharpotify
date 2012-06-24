@@ -22,10 +22,12 @@ namespace Sharpotify.Util
             DnsQueryRequest request = new DnsQueryRequest();
             IPAddress currentDns = GetActiveDnsServer();
             if (currentDns == null)
+            {
                 return addresses;
+            }
             try
             {
-                DnsQueryResponse response = request.Resolve(currentDns.ToString(), name, NsType.SRV, NsClass.INET, ProtocolType.Udp);
+                DnsQueryResponse response = request.Resolve(name, NsType.SRV, NsClass.INET, ProtocolType.Udp);
                 foreach (IDnsRecord record in response.Answers)
                 {
                     if (record is SrvRecord)
