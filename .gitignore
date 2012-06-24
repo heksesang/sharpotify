@@ -2,5 +2,9 @@
 bin
 obj
 
+# User files
+*.user
+*.suo
+
 # mstest test results
 TestResults
