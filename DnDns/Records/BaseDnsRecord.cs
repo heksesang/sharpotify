@@ -234,9 +234,6 @@ namespace DnDns.Records
                     }
                     default:
                     {
-                        if (next > 1024 * 1024 * 1024) //FIXME: by JackJson: Avoid overflow
-                            throw new OverflowException("Fix bugs please.");
-
                         try
                         {
                             byte[] buffer = new byte[next];
