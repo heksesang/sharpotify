@@ -45,6 +45,14 @@ namespace Sharpotify.Media
         /// </summary>
         private string _cover;
         /// <summary>
+        /// The identifier for this tracks cover image (32-character string) in small size.
+        /// </summary>
+        private string _coverSmall;
+        /// <summary>
+        /// The identifier for this tracks cover image (32-character string) in large size.
+        /// </summary>
+        private string _coverLarge;
+        /// <summary>
         /// Similar tracks of this track.
         /// </summary>
         private List<Track> _similarTracks;
@@ -81,6 +89,14 @@ namespace Sharpotify.Media
         /// Get/Set the tracks cover image identifier.
         /// </summary>
         public string Cover { get { return _cover; } set { _cover = value; } }
+        /// <summary>
+        /// Get/Set the tracks cover image identifier.
+        /// </summary>
+        public string CoverSmall { get { return _coverSmall; } set { _coverSmall = value; } }
+        /// <summary>
+        /// Get/Set the tracks cover image identifier.
+        /// </summary>
+        public string CoverLarge { get { return _coverLarge; } set { _coverLarge = value; } }
         /// <summary>
         /// Get/Set similar tracks for this track.
         /// </summary>

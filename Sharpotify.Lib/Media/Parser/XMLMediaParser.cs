@@ -75,32 +75,48 @@ namespace Sharpotify.Media.Parser
             {
                 name = this.reader.LocalName;
                 /* Process depending on element name. */
-                if(name.Equals("version"))
+                if (name.Equals("version"))
                 {
                     int version = this.GetElementInteger();
 
                     /* Check version. */
-                    if(version > SUPPORTED_RESULT_VERSION)
+                    if (version > SUPPORTED_RESULT_VERSION)
+                    {
                         throw new XMLParserException("Unsupported <result> version " + version);
+                    }
                 }
-                else if(name.Equals("did-you-mean"))
+                else if (name.Equals("did-you-mean"))
+                {
                     result.Suggestion = this.GetElementString();
-                else if(name.Equals("total-artists"))
+                }
+                else if (name.Equals("total-artists"))
+                {
                     result.TotalArtists = this.GetElementInteger();
-                else if(name.Equals("total-albums"))
+                }
+                else if (name.Equals("total-albums"))
+                {
                     result.TotalAlbums = this.GetElementInteger();
-                
-                else if(name.Equals("total-tracks"))
+                }
+                else if (name.Equals("total-tracks"))
+                {
                     result.TotalTracks = this.GetElementInteger();
-                
-                else if(name.Equals("artists"))
+                }
+                else if (name.Equals("artists"))
+                {
                     result.Artists = ParseArtists();
-                else if(name.Equals("albums"))
+                }
+                else if (name.Equals("albums"))
+                {
                     result.Albums = ParseAlbums();
-                else if(name.Equals("tracks"))
+                }
+                else if (name.Equals("tracks"))
+                {
                     result.Tracks = ParseTracks();
+                }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
 
                 this.Next();
             }
@@ -122,10 +138,14 @@ namespace Sharpotify.Media.Parser
                 name = this.reader.LocalName;
 
                 /* Process depending on element name. */
-                if(name.Equals("artist"))
+                if (name.Equals("artist"))
+                {
                     artists.Add(ParseArtist());
+                }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
 
                 this.Next();
             }
@@ -148,10 +168,14 @@ namespace Sharpotify.Media.Parser
                 name = this.reader.LocalName;
 
                 /* Process depending on element name. */
-                if(name.Equals("album"))
+                if (name.Equals("album"))
+                {
                     albums.Add(ParseAlbum());
+                }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
 
                 this.Next();
             }
@@ -174,10 +198,14 @@ namespace Sharpotify.Media.Parser
                 name = this.reader.LocalName;
 
                 /* Process depending on element name. */
-                if(name.Equals("track"))
+                if (name.Equals("track"))
+                {
                     tracks.Add(ParseTrack());
+                }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
 
                 this.Next();
             }
@@ -200,51 +228,73 @@ namespace Sharpotify.Media.Parser
                 name = this.reader.LocalName;
 
                 /* Process depending on element name. */
-                if(name.Equals("version"))
+                if (name.Equals("version"))
                 {
                     int version = this.GetElementInteger();
 
                     /* Check version. */
-                    if(version > SUPPORTED_ARTIST_VERSION)
+                    if (version > SUPPORTED_ARTIST_VERSION)
+                    {
                         throw new XMLParserException("Unsupported <album> version " + version);
+                    }
                 }
                 else if(name.Equals("id")){
                     /* TODO: handle different ID types. */
-                    if(this.GetAttributeString("type") == null)
+                    if (this.GetAttributeString("type") == null)
                     {
                         artist.Id = this.GetElementString();
                     }
                 }
-                else if(name.Equals("redirect"))
+                else if (name.Equals("redirect"))
+                {
                     artist.AddRedirect(this.GetElementString());
-                else if(name.Equals("name"))
+                }
+                else if (name.Equals("name"))
+                {
                     artist.Name = this.GetElementString();
-                else if(name.Equals("portrait"))
+                }
+                else if (name.Equals("portrait"))
+                {
                     artist.Portrait = ParseImage();
-                else if(name.Equals("genres"))
+                }
+                else if (name.Equals("genres"))
                 {
                     string[] genres = this.GetElementString().Split(',');
                     artist.Genres = new List<string>(genres);
                 }
-                else if(name.Equals("years-active"))
+                else if (name.Equals("years-active"))
                 {
                     string[] years = this.GetElementString().Split(',');
                     artist.YearsActive = new List<string>(years);
                 }
-                else if(name.Equals("popularity"))
+                else if (name.Equals("popularity"))
+                {
                     artist.Popularity = this.GetElementFloat();
-                else if(name.Equals("bios"))
+                }
+                else if (name.Equals("bios"))
+                {
                     artist.Bios = ParseBios();
-                else if(name.Equals("similar-artists"))
+                }
+                else if (name.Equals("similar-artists"))
+                {
                     artist.SimilarArtists = ParseArtists();
-                else if(name.Equals("albums"))
+                }
+                else if (name.Equals("albums"))
+                {
                     artist.Albums = ParseAlbums();
-                else if(name.Equals("restrictions"))
+                }
+                else if (name.Equals("restrictions"))
+                {
                     artist.Restrictions = ParseRestrictions();
-                else if(name.Equals("external-ids"))
+                }
+                else if (name.Equals("external-ids"))
+                {
                     artist.ExternalIds = ParseExternalIds();
+                }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
                 
                 this.Next();
             }
@@ -263,59 +313,76 @@ namespace Sharpotify.Media.Parser
                 name = this.reader.LocalName;
 
                 /* Process depending on element name. */
-                if(name.Equals("version"))
+                if (name.Equals("version"))
                 {
                     int version = this.GetElementInteger();
 
                     /* Check version. */
-                    if(version > SUPPORTED_ALBUM_VERSION)
+                    if (version > SUPPORTED_ALBUM_VERSION)
+                    {
                         throw new XMLParserException("Unsupported <album> version " + version);
+                    }
                 }
                 else if(name.Equals("id"))
                 {
                     /* TODO: handle different ID types. */
-                    if(this.GetAttributeString("type") == null)
+                    if (this.GetAttributeString("type") == null)
+                    {
                         album.Id = this.GetElementString();
+                    }
                     
                 }
-                else if(name.Equals("redirect"))
-                    album.AddRedirect(this.GetElementString());
-                else if(name.Equals("name"))
-                    album.Name = this.GetElementString();
-                else if(name.Equals("artist") || name.Equals("artist-name"))
+                else if (name.Equals("redirect"))
                 {
-                    Artist artist = (album.Artist != null)? album.Artist : new Artist();
+                    album.AddRedirect(this.GetElementString());
+                }
+                else if (name.Equals("name"))
+                {
+                    album.Name = this.GetElementString();
+                }
+                else if (name.Equals("artist") || name.Equals("artist-name"))
+                {
+                    Artist artist = (album.Artist != null) ? album.Artist : new Artist();
                     /* Get artist name. */
                     artist.Name = this.GetElementString();
                     album.Artist = artist;
                 }
-                else if(name.Equals("artist-id"))
+                else if (name.Equals("artist-id"))
                 {
                     Artist artist = (album.Artist != null) ? album.Artist : new Artist();
                     artist.Id = this.GetElementString();
                     album.Artist = artist;
                 }
-                else if(name.Equals("album-type"))
-                    album.Type = this.GetElementString();
-                else if(name.Equals("cover"))
+                else if (name.Equals("album-type"))
                 {
-                    string cover = this.GetElementString();
-
-                    /* Check if string is empty to prevent exception in setCover(). */
-                    if(!string.IsNullOrEmpty(cover))
-                        album.Cover = cover;
+                    album.Type = this.GetElementString();
                 }
-                else if(name.Equals("popularity"))
+                else if (name.Equals("cover"))
+                {
+                    album.Cover = this.GetElementString();
+                }
+                else if (name.Equals("cover-small"))
+                {
+                    album.CoverSmall = this.GetElementString();
+                }
+                else if (name.Equals("cover-large"))
+                {
+                    album.CoverLarge = this.GetElementString();
+                }
+                else if (name.Equals("popularity"))
+                {
                     album.Popularity = this.GetElementFloat();
-                
-                else if(name.Equals("review"))
+                }
+                else if (name.Equals("review"))
+                {
                     album.Review = this.GetElementString();
-                else if(name.Equals("year") || name.Equals("released"))
+                }
+                else if (name.Equals("year") || name.Equals("released"))
                 {
                     album.Year = this.GetElementInteger();
                 }
                 /* TODO: currently skipped. */
-                else if(name.Equals("copyright"))
+                else if (name.Equals("copyright"))
                 {
                     /* Go to next element and check if it is a start element. */
                     this.Next();
@@ -324,40 +391,55 @@ namespace Sharpotify.Media.Parser
                         name = this.reader.LocalName;
 
                         /* Process depending on element name. */
-                        if(name.Equals("c")){
+                        if (name.Equals("c"))
+                        {
                             /* Skip text. */
                             this.GetElementString();
                         }
-                        else if(name.Equals("p")){
+                        else if (name.Equals("p"))
+                        {
                             /* Skip text. */
                             this.GetElementString();
                         }
-                        else{
+                        else
+                        {
                             throw new XMLParserException("Unexpected element '<" + name + ">'");
                         }
                         this.Next();
                     }
                 }
                 /* TODO: currently skipped. */
-                else if(name.Equals("links"))
+                else if (name.Equals("links"))
+                {
                     SkipLinks();
-                else if(name.Equals("restrictions"))
+                }
+                else if (name.Equals("restrictions"))
+                {
                     album.Restrictions = ParseRestrictions();
+                }
                 /* TODO: currently skipped. */
-                else if(name.Equals("availability"))
+                else if (name.Equals("availability"))
+                {
                     SkipAvailability();
+                }
                 /* Seems to be deprecated. */
-                else if(name.Equals("allowed"))
+                else if (name.Equals("allowed"))
+                {
                     /* Skip text. */
                     this.GetElementString();
+                }
                 /* Seems to be deprecated. */
-                else if(name.Equals("forbidden"))
+                else if (name.Equals("forbidden"))
+                {
                     /* Skip text. */
                     this.GetElementString();
-                else if(name.Equals("genres"))
+                }
+                else if (name.Equals("genres"))
+                {
                     /* Skip text. */
                     this.GetElementString();
-                else if(name.Equals("discs"))
+                }
+                else if (name.Equals("discs"))
                 {
                     List<Disc> discs = new List<Disc>();
 
@@ -368,10 +450,10 @@ namespace Sharpotify.Media.Parser
                         name = this.reader.LocalName;
 
                         /* Process depending on element name. */
-                        if(name.Equals("disc"))
+                        if (name.Equals("disc"))
                         {
                             List<Track> tracks = new List<Track>();
-                            Disc disc   = new Disc();
+                            Disc disc = new Disc();
 
                             /* Go to next element and check if it is a start element. */
                             this.Next();
@@ -379,11 +461,15 @@ namespace Sharpotify.Media.Parser
                             {
                                 name = this.reader.LocalName;
 
-                                if(name.Equals("disc-number"))
+                                if (name.Equals("disc-number"))
+                                {
                                     disc.Number = this.GetElementInteger();
-                                else if(name.Equals("name"))
+                                }
+                                else if (name.Equals("name"))
+                                {
                                     disc.Name = this.GetElementString();
-                                else if(name.Equals("track"))
+                                }
+                                else if (name.Equals("track"))
                                 {
                                     Track track = ParseTrack();
 
@@ -393,8 +479,10 @@ namespace Sharpotify.Media.Parser
                                     tracks.Add(track);
                                 }
                                 else
+                                {
                                     throw new XMLParserException("Unexpected element '<" + name + ">'");
-            
+                                }
+
                                 this.Next();
                             }
 
@@ -403,14 +491,16 @@ namespace Sharpotify.Media.Parser
                             discs.Add(disc);
                         }
                         else
+                        {
                             throw new XMLParserException("Unexpected element '<" + name + ">'");
+                        }
 
                         this.Next();
                     }
 
                     album.Discs = discs;
                 }
-                else if(name.Equals("similar-albums"))
+                else if (name.Equals("similar-albums"))
                 {
                     List<Album> similarAlbums = new List<Album>();
 
@@ -420,21 +510,29 @@ namespace Sharpotify.Media.Parser
                         name = this.reader.LocalName;
 
                         /* Process depending on element name. */
-                        if(name.Equals("id"))
+                        if (name.Equals("id"))
+                        {
                             similarAlbums.Add(new Album(this.GetElementString()));
+                        }
                         else
+                        {
                             throw new XMLParserException("Unexpected element '<" + name + ">'");
-                        
+                        }
+
                         this.Next();
                     }
 
                     /* Set similar albums. */
                     album.SimilarAlbums = similarAlbums;
                 }
-                else if(name.Equals("external-ids"))
+                else if (name.Equals("external-ids"))
+                {
                     album.ExternalIds = ParseExternalIds();
+                }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
                 
                 this.Next();
             }
@@ -456,45 +554,52 @@ namespace Sharpotify.Media.Parser
                 if(name.Equals("id"))
                 {
                     /* TODO: handle different ID types. */
-                    if(this.GetAttributeString("type") == null){
+                    if(this.GetAttributeString("type") == null)
+                    {
                         track.Id = this.GetElementString();
                     }
                 }
-                else if(name.Equals("redirect"))
+                else if (name.Equals("redirect"))
+                {
                     track.AddRedirect(this.GetElementString());
+                }
                 /* TODO: currently skipped. */
-                else if(name.Equals("redirect"))
+                else if (name.Equals("redirect"))
+                {
                     /* Skip text. */
                     this.GetElementString();
-                else if(name.Equals("title") || name.Equals("name"))
-                    track.Title = this.GetElementString();
-                else if(name.Equals("artist"))
+                }
+                else if (name.Equals("title") || name.Equals("name"))
                 {
-                    Artist artist = (track.Artist != null)? track.Artist : new Artist();
+                    track.Title = this.GetElementString();
+                }
+                else if (name.Equals("artist"))
+                {
+                    Artist artist = (track.Artist != null) ? track.Artist : new Artist();
                     /* Get artist name. */
                     artist.Name = this.GetElementString();
                     track.Artist = artist;
                 }
-                else if(name.Equals("artist-id"))
+                else if (name.Equals("artist-id"))
                 {
                     Artist artist = (track.Artist != null) ? track.Artist : new Artist();
                     artist.Id = this.GetElementString();
                     track.Artist = artist;
                 }
-                else if(name.Equals("album"))
+                else if (name.Equals("album"))
                 {
                     Album album = (track.Album != null) ? track.Album : new Album();
                     /* Get album name. */
                     album.Name = this.GetElementString();
                     track.Album = album;
                 }
-                else if(name.Equals("album-id"))
+                else if (name.Equals("album-id"))
                 {
                     Album album = (track.Album != null) ? track.Album : new Album();
                     album.Id = this.GetElementString();
                     track.Album = album;
                 }
-                else if(name.Equals("album-artist"))
+                else if (name.Equals("album-artist"))
                 {
                     Album album = (track.Album != null) ? track.Album : new Album();
                     Artist artist = (track.Artist != null) ? track.Artist : new Artist();
@@ -502,7 +607,7 @@ namespace Sharpotify.Media.Parser
                     album.Artist = artist;
                     track.Album = album;
                 }
-                else if(name.Equals("album-artist-id"))
+                else if (name.Equals("album-artist-id"))
                 {
                     Album album = (track.Album != null) ? track.Album : new Album();
                     Artist artist = (track.Artist != null) ? track.Artist : new Artist();
@@ -510,46 +615,74 @@ namespace Sharpotify.Media.Parser
                     album.Artist = artist;
                     track.Album = album;
                 }
-                else if(name.Equals("year"))
+                else if (name.Equals("year"))
+                {
                     track.Year = this.GetElementInteger();
-                else if(name.Equals("track-number"))
+                }
+                else if (name.Equals("track-number"))
+                {
                     track.TrackNumber = this.GetElementInteger();
-                else if(name.Equals("length"))
+                }
+                else if (name.Equals("length"))
                 {
                     int length = this.GetElementInteger();
 
-                    if(length > 0)
+                    if (length > 0)
+                    {
                         track.Length = length;
+                    }
                 }
-                else if(name.Equals("files"))
+                else if (name.Equals("files"))
+                {
                     track.Files = ParseFiles();
+                }
                 /* TODO: currently skipped. */
-                else if(name.Equals("links"))
+                else if (name.Equals("links"))
+                {
                     SkipLinks();
+                }
                 /* TODO: currently skipped. */
-                else if(name.Equals("album-links"))
+                else if (name.Equals("album-links"))
+                {
                     SkipLinks();
-                else if(name.Equals("cover"))
+                }
+                else if (name.Equals("cover"))
+                {
                     track.Cover = this.GetElementString();
-                else if(name.Equals("popularity"))
+                }
+                else if (name.Equals("cover-small"))
+                {
+                    track.CoverSmall = this.GetElementString();
+                }
+                else if (name.Equals("cover-large"))
+                {
+                    track.CoverLarge = this.GetElementString();
+                }
+                else if (name.Equals("popularity"))
+                {
                     track.Popularity = this.GetElementFloat();
-                else if(name.Equals("restrictions"))
+                }
+                else if (name.Equals("restrictions"))
+                {
                     track.Restrictions = this.ParseRestrictions();
-                else if(name.Equals("explicit"))
+                }
+                else if (name.Equals("explicit"))
+                {
                     track.IsExplicit = this.GetElementBoolean();
+                }
                 /* Seems to be deprecated. */
-                else if(name.Equals("allowed"))
+                else if (name.Equals("allowed"))
                 {
                     /* Skip text. */
                     this.GetElementString();
                 }
                 /* Seems to be deprecated. */
-                else if(name.Equals("forbidden"))
+                else if (name.Equals("forbidden"))
                 {
                     /* Skip text. */
                     this.GetElementString();
                 }
-                else if(name.Equals("similar-tracks"))
+                else if (name.Equals("similar-tracks"))
                 {
                     List<Track> similarTracks = new List<Track>();
 
@@ -560,10 +693,14 @@ namespace Sharpotify.Media.Parser
                         name = this.reader.LocalName;
 
                         /* Process depending on element name. */
-                        if(name.Equals("id"))
+                        if (name.Equals("id"))
+                        {
                             similarTracks.Add(new Track(this.GetElementString()));
+                        }
                         else
+                        {
                             throw new XMLParserException("Unexpected element '<" + name + ">'");
+                        }
 
                         this.Next();
                     }
@@ -571,11 +708,18 @@ namespace Sharpotify.Media.Parser
                     /* Set similar tracks. */
                     track.SimilarTracks = similarTracks;
                 }
-                else if(name.Equals("external-ids")){
+                else if (name.Equals("alternatives"))
+                {
+                    var tracks = ParseTracks();
+                }
+                else if (name.Equals("external-ids"))
+                {
                     track.ExternalIds = ParseExternalIds();
                 }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
                 
                 this.Next();
             }

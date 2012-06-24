@@ -25,6 +25,14 @@ namespace Sharpotify.Media
         /// </summary>
         private string _cover;
         /// <summary>
+        /// The identifier for this albums cover image (32-character string) in small size.
+        /// </summary>
+        private string _coverSmall;
+        /// <summary>
+        /// The identifier for this albums cover image (32-character string) in large size.
+        /// </summary>
+        private string _coverLarge;
+        /// <summary>
         /// The type of this album (compilation, album, single).
         /// </summary>
         private string _type;
@@ -86,7 +94,9 @@ namespace Sharpotify.Media
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentException("Expecting a positive year.");
+                }
 
                 this._year = value;
             }
@@ -100,10 +110,46 @@ namespace Sharpotify.Media
             set
             {
                 if (value == null || value.Length != 40 || !Hex.IsHex(value))
+                {
                     throw new ArgumentException("Expecting a 40-character hex string.");
+                }
 
                 this._cover = value;
             } 
+        }
+
+        /// <summary>
+        /// Get/Set the albums small cover image identifier.
+        /// </summary>
+        public string CoverSmall
+        {
+            get { return this._coverSmall; }
+            set
+            {
+                if (value == null || value.Length != 40 || !Hex.IsHex(value))
+                {
+                    throw new ArgumentException("Expecting a 40-character hex string.");
+                }
+
+                this._coverSmall = value;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set the albums large cover image identifier.
+        /// </summary>
+        public string CoverLarge
+        {
+            get { return this._coverLarge; }
+            set
+            {
+                if (value == null || value.Length != 40 || !Hex.IsHex(value))
+                {
+                    throw new ArgumentException("Expecting a 40-character hex string.");
+                }
+
+                this._coverLarge = value;
+            }
         }
         
         /// <summary>
@@ -115,7 +161,9 @@ namespace Sharpotify.Media
             {
                 List<Track> tracks = new List<Track>();
                 foreach (Disc disc in this.Discs)
+                {
                     tracks.AddRange(disc.Tracks);
+                }
 		        return tracks;
             }
         }
