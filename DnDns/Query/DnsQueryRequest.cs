@@ -154,88 +154,88 @@ namespace DnDns.Query
             switch (protocol)
             {
                 case ProtocolType.Tcp:
+                {
+                    throw new NotImplementedException("TCP Protocol implementation not finished.");
+                        
+                    //// Creates a SocketPermission which will allow the target Socket to connect with the DNS Server.
+                    //SocketPermission socketPermission = new SocketPermission(
+                    //    NetworkAccess.Connect, 
+                    //    TransportType.Tcp, 
+                    //    dnsServer, 
+                    //    (int)UdpServices.Domain
+                    //);
+                        
+                    //// do stack walk and Demand all callers have the appropriate SocketPermissions.
+                    //socketPermission.Demand();
+
+                    TcpClient tcpClient = new TcpClient();
+
+                    try
                     {
-                        throw new NotImplementedException("TCP Protocol implementation not finished.");
-                        
-                        //// Creates a SocketPermission which will allow the target Socket to connect with the DNS Server.
-                        //SocketPermission socketPermission = new SocketPermission(
-                        //    NetworkAccess.Connect, 
-                        //    TransportType.Tcp, 
-                        //    dnsServer, 
-                        //    (int)UdpServices.Domain
-                        //);
-                        
-                        //// do stack walk and Demand all callers have the appropriate SocketPermissions.
-                        //socketPermission.Demand();
+                        tcpClient.Connect(ipep);
 
-                        TcpClient tcpClient = new TcpClient();
+                        NetworkStream netStream = tcpClient.GetStream();
+                        BinaryReader netReader = new System.IO.BinaryReader(netStream);
+                        //netStream.CanWrite)
+                        netStream.Write(bDnsQuery, 0, bDnsQuery.Length);
 
-                        try
+                        while (!netStream.DataAvailable) ;
+
+                        if (tcpClient.Connected && netStream.DataAvailable)
                         {
-                            tcpClient.Connect(ipep);
-
-                            NetworkStream netStream = tcpClient.GetStream();
-                            BinaryReader netReader = new System.IO.BinaryReader(netStream);
-                            //netStream.CanWrite)
-                            netStream.Write(bDnsQuery, 0, bDnsQuery.Length);
-
-                            while (!netStream.DataAvailable) ;
-
-                            if (tcpClient.Connected && netStream.DataAvailable)
-                            {
-                                MemoryStream memStream = new MemoryStream(1024);
-                                bool canRead = netStream.DataAvailable;
+                            MemoryStream memStream = new MemoryStream(1024);
+                            bool canRead = netStream.DataAvailable;
                                 
-                                while (canRead)
-                                {
-                                    int byteRead = netStream.ReadByte();
-                                    byte[] result = BitConverter.GetBytes(byteRead);
+                            while (canRead)
+                            {
+                                int byteRead = netStream.ReadByte();
+                                byte[] result = BitConverter.GetBytes(byteRead);
 
-                                    memStream.WriteByte(result[0]);
-                                    canRead = netStream.DataAvailable;
-                                }
-                                recvBytes = memStream.GetBuffer();
+                                memStream.WriteByte(result[0]);
+                                canRead = netStream.DataAvailable;
                             }
+                            recvBytes = memStream.GetBuffer();
                         }
-                        finally
-                        {
-                            tcpClient.Close();
-                        }
-
-                        break;
                     }
+                    finally
+                    {
+                        tcpClient.Close();
+                    }
+
+                    break;
+                }
                 case ProtocolType.Udp:
-                    {
-                        // Creates a SocketPermission which will allow the target Socket to connect with the DNS Server.
-                        //SocketPermission socketPermission = new SocketPermission(
-                        //    NetworkAccess.Connect, 
-                        //    TransportType.Udp, 
-                        //    dnsServer, 
-                        //    (int)UdpServices.Domain
-                        //);
+                {
+                    // Creates a SocketPermission which will allow the target Socket to connect with the DNS Server.
+                    //SocketPermission socketPermission = new SocketPermission(
+                    //    NetworkAccess.Connect, 
+                    //    TransportType.Udp, 
+                    //    dnsServer, 
+                    //    (int)UdpServices.Domain
+                    //);
 
-                        //// Do stack walk and Demand all callers have the appropriate SocketPermissions.
-                        //socketPermission.Demand();
+                    //// Do stack walk and Demand all callers have the appropriate SocketPermissions.
+                    //socketPermission.Demand();
 
-                        // UDP messages, data size = 512 octets or less
-                        UdpClient udpClient = new UdpClient();
+                    // UDP messages, data size = 512 octets or less
+                    UdpClient udpClient = new UdpClient();
                         
-                        try
-                        {
-                            udpClient.Connect(ipep);
-                            udpClient.Send(bDnsQuery, bDnsQuery.Length);
-                            recvBytes = udpClient.Receive(ref ipep);
-                        }
-                        finally
-                        {
-                            udpClient.Close();
-                        }
-                        break;
-                    }
-                default:
+                    try
                     {
-                        throw new InvalidOperationException("Invalid Protocol: " + protocol.ToString());
+                        udpClient.Connect(ipep);
+                        udpClient.Send(bDnsQuery, bDnsQuery.Length);
+                        recvBytes = udpClient.Receive(ref ipep);
                     }
+                    finally
+                    {
+                        udpClient.Close();
+                    }
+                    break;
+                }
+                default:
+                {
+                    throw new InvalidOperationException("Invalid Protocol: " + protocol.ToString());
+                }
             }
 
             Trace.Assert(recvBytes != null, "Failed to retrieve data from the remote DNS server.");
