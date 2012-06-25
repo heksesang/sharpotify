@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpotify.Library", "Sharp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentalisCryptography", "MentalisCryptography\MentalisCryptography.csproj", "{7C28D157-0724-4B04-BCAE-4C5EF9E78F9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyConsole", "..\Documents\Visual Studio 11\Projects\SpotifyConsole\SpotifyConsole\SpotifyConsole.csproj", "{9002CD47-8D36-4844-9B38-C44BD83FDDDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{821194E4-AAD0-4F99-B40F-CD2B153C6027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821194E4-AAD0-4F99-B40F-CD2B153C6027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821194E4-AAD0-4F99-B40F-CD2B153C6027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9002CD47-8D36-4844-9B38-C44BD83FDDDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9002CD47-8D36-4844-9B38-C44BD83FDDDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9002CD47-8D36-4844-9B38-C44BD83FDDDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9002CD47-8D36-4844-9B38-C44BD83FDDDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
