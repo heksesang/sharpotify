@@ -504,6 +504,11 @@ namespace Sharpotify.Protocol
             byte[] header = (byte[])asyn.AsyncState;
             int command, payloadLength, macLength = 4;
 
+            if (header.Count(b => b == 0) == 3)
+            {
+                throw new ConnectionException("The connection has been closed by the remote host.");
+            }
+
 		    /* Set IV. */
 		    this.session.ShannonRecv.nonce(IntUtils.ToBytes(this.session.KeyRecvIv));
 
