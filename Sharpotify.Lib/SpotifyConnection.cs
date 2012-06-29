@@ -1550,6 +1550,9 @@
 			    
 			    case Command.COMMAND_WELCOME: 
 				    break;
+
+                case Command.COMMAND_LICENSE:
+                    break;
 			    
 			    case Command.COMMAND_PAUSE: 
 				    /* TODO: Show notification and pause. */

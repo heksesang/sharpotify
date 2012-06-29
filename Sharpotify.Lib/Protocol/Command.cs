@@ -49,5 +49,6 @@ namespace Sharpotify.Protocol
 	    /* Internal. */
 	    public const int COMMAND_PRODINFO = 0x50;
         public const int COMMAND_WELCOME = 0x69;
+        public const int COMMAND_LICENSE = 0x76;
     }
 }
