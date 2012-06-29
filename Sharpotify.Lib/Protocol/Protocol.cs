@@ -818,7 +818,7 @@ namespace Sharpotify.Protocol
             /* 20 bytes file id. */
             buffer.Put(Hex.ToBytes(file.Id));
 
-            if (offset % 4096 != 0 || length % 4096 != 0)
+            if (offset % 4096 != 0 || length % 4096 != 0 || length == 0)
             {
                 throw new ArgumentException("Offset and length need to be a multiple of 4096.");
             }
