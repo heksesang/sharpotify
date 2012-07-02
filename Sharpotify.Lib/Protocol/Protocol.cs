@@ -726,12 +726,12 @@ namespace Sharpotify.Protocol
             /* Append channel id, some unknown values, query length and query. */
             buffer.PutShort((short)channel.Id);
             buffer.PutShort((short)0x0000); /* Unknown. */
-            buffer.PutInt(offset); /* Result offset. */
-            buffer.PutInt(limit); /* Reply limit. */
-            buffer.PutInt(0x00000000); /* Unknown. */
-            buffer.PutInt(0xFFFFFFFF); /* Unknown. */
-            buffer.PutInt(0x00000000); /* Unknown. */
-            buffer.PutInt(0xFFFFFFFF); /* Unknown. */
+            buffer.PutInt(offset); /* Track offset. */
+            buffer.PutInt(limit); /* Track limit. */
+            buffer.PutInt(offset); /* Album offset. */
+            buffer.PutInt(limit); /* Album limit. */
+            buffer.PutInt(offset); /* Artist offset. */
+            buffer.PutInt(limit); /* Artist limit. */
             buffer.PutShort((short)0x0000); /* Unknown. */
             buffer.Put((byte)queryBytes.Length);
             buffer.Put(queryBytes);
