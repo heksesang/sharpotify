@@ -1425,18 +1425,6 @@
                 return null;
             }
             byte[] key = listener.Get(timeout);
-            try
-            {
-                this.protocol.SendSubstreamRequest(callback2, file, 0, 0);
-            }
-            catch (ProtocolException)
-            {
-                return null;
-            }
-            if (callback2.Get(this.Timeout).Length == 4)
-            {
-                throw new NotImplementedException();
-            }
             MusicStream output = new MusicStream();
             ChannelStreamer streamer = new ChannelStreamer(this.protocol, file, key, output);
             return output;
