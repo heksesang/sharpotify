@@ -162,6 +162,11 @@ namespace Sharpotify.Cache
 
         public void Store(string category, string hash, byte[] data, int size)
         {
+            if (size == 0)
+            {
+                return;
+            }
+
             try
             {
                 string fileName = GetFullPath(category, hash);
