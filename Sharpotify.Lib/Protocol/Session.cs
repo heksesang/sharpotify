@@ -116,7 +116,7 @@ namespace Sharpotify.Protocol
         #endregion
         #region Factory
         public Session()
-            : this(CLIENT_OS_UNKNOWN_4, CLIENT_REVISION)
+            : this(CLIENT_OS_WINDOWS_X86, CLIENT_REVISION)
         {
 
         }
