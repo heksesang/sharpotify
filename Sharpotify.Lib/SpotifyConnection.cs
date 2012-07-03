@@ -1426,7 +1426,14 @@
             }
             byte[] key = listener.Get(timeout);
             MusicStream output = new MusicStream();
-            ChannelStreamer streamer = new ChannelStreamer(this.protocol, file, key, output);
+            try
+            {
+                ChannelStreamer streamer = new ChannelStreamer(this.protocol, file, key, output);
+            }
+            catch (Exception)
+            {
+                /* Ignore */
+            }
             return output;
         }
         #endregion
@@ -1498,6 +1505,13 @@
                     Array.Copy(payload, 2, aux, 0, aux.Length);
                     /* Channel id is at offset 2. AES Key is at offset 4. */
                     Channel.Process(aux);
+                    break;
+
+                case Command.COMMAND_AESKEYERR:
+                    aux = new byte[payload.Length - 2];
+                    Array.Copy(payload, 2, aux, 0, aux.Length);
+                    /* Channel id is at offset 2. */
+                    Channel.Error(aux);
                     break;
 
                 case Command.COMMAND_SHAHASH:
