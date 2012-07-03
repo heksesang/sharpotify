@@ -43,6 +43,12 @@ namespace Sharpotify.Protocol.Channel
         #region Factory
         public ChannelStreamer(Protocol protocol, Media.File file, byte[] key, MusicStream output)
         {
+            if (key.Length != (128 / 8))
+            {
+                output.AllAvailable = true;
+                throw new InvalidDataException("Encryption key for channel must be 128-bit.");
+            }
+
             _cipher.BlockSize = 128;
             _cipher.KeySize = 128;
             _key = key;
@@ -221,7 +227,6 @@ namespace Sharpotify.Protocol.Channel
             {
                 if (this._channelTotal < this._channelLength)
                 {
-                    //this._output.Close(); //NOTE: Doesn't close
                     this._output.AllAvailable = true;
 
                     return;
