@@ -90,7 +90,7 @@ namespace Sharpotify.Protocol
         #endregion
         #region Properties
         public byte[] ArrayUsername { get { return this._username; } internal set { this._username = value; } }
-        public string StringUsername { get { return Encoding.ASCII.GetString(this._username); } }
+        public string StringUsername { get { return Encoding.UTF8.GetString(this._username); } }
         public RSAPublicKey RSAPublicKey { get { return this._rsaClientKeyPair.PublicKey; } }
         public int ClientOs { get { return this._clientOs; } }
         public int ClientRevision { get { return this._clientRevision; } set { this._clientRevision = value; } }
@@ -196,8 +196,8 @@ namespace Sharpotify.Protocol
             int tries = 3;
 
             /* Set username and password. */
-            this._username = Encoding.ASCII.GetBytes(username);
-            this._password = Encoding.ASCII.GetBytes(password);
+            this._username = Encoding.UTF8.GetBytes(username);
+            this._password = Encoding.UTF8.GetBytes(password);
 
             while (true)
             {

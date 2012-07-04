@@ -219,7 +219,7 @@ namespace Sharpotify.Protocol
                         if ((ret = this.Receive(buffer, paddingLength)) > 0)
                         {
                             //string msg = new string(Arrays.copyOfRange(buffer, 0, ret));
-                            string msg = Encoding.ASCII.GetString(buffer, 0, ret);
+                            string msg = Encoding.UTF8.GetString(buffer, 0, ret);
                             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.[0-9a-z]+");
                             System.Text.RegularExpressions.Match matcher = regex.Match(msg);
 
@@ -1043,7 +1043,7 @@ namespace Sharpotify.Protocol
         {
             /* Create channel and buffer. */
             Channel.Channel channel = new Channel.Channel("Change-Playlist-Container-Channel", Channel.ChannelType.TYPE_PLAYLIST, listener);
-            byte[] bytes = Encoding.ASCII.GetBytes(xml);
+            byte[] bytes = Encoding.UTF8.GetBytes(xml);
             ByteBuffer buffer = ByteBuffer.Allocate(2 + 16 + 1 + 4 + 4 + 4 + 1 + 1 + bytes.Length);
 
             /* Append channel id, playlist id and some bytes... */
@@ -1071,7 +1071,7 @@ namespace Sharpotify.Protocol
         {
             /* Create channel and buffer. */
             Channel.Channel channel = new Channel.Channel("Change-Playlist-Channel", Channel.ChannelType.TYPE_PLAYLIST, listener);
-            byte[] bytes = Encoding.ASCII.GetBytes(xml);
+            byte[] bytes = Encoding.UTF8.GetBytes(xml);
             ByteBuffer buffer = ByteBuffer.Allocate(2 + 16 + 1 + 4 + 4 + 4 + 1 + 1 + bytes.Length);
 
             /* Append channel id, playlist id and some bytes... */
@@ -1099,7 +1099,7 @@ namespace Sharpotify.Protocol
         {
             /* Create channel and buffer. */
             Channel.Channel channel = new Channel.Channel("Change-Playlist-Channel", Channel.ChannelType.TYPE_PLAYLIST, listener);
-            byte[] bytes = Encoding.ASCII.GetBytes(xml);
+            byte[] bytes = Encoding.UTF8.GetBytes(xml);
             ByteBuffer buffer = ByteBuffer.Allocate(2 + 16 + 1 + 4 + 4 + 4 + 1 + 1 + bytes.Length);
 
             /* Append channel id, playlist id and some bytes... */
