@@ -1016,24 +1016,11 @@ namespace Sharpotify.Media.Parser
         /// Parse <code>xml</code> into an object.
         /// </summary>
         /// <param name="xml">The xml as bytes.</param>
-        /// <returns>An object if successful, null if not.</returns>
+        /// <returns>Returns the object.</returns>
         public static object Parse(byte[] xml)
         {
-            try
-            {
-                XMLMediaParser parser = new XMLMediaParser(new MemoryStream(xml, 0, xml.Length - 1));
-                return parser.Parse();
-            }
-            catch (XMLParserException e)
-            {
-                System.Console.WriteLine(e.StackTrace);
-                return null;
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine(e.StackTrace);
-                return null;
-            }
+            XMLMediaParser parser = new XMLMediaParser(new MemoryStream(xml, 0, xml.Length - 1));
+            return parser.Parse();
         }
         /// <summary>
         /// Parse <code>xml</code> into a <see cref="Result"/> object.

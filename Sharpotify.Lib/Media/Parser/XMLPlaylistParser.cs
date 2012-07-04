@@ -347,20 +347,8 @@ namespace Sharpotify.Media.Parser
         /// <returns>An object if successful, null if not.</returns>
         public static object Parse(byte[] data, string id)
         {
-            try
-            {
-                XMLPlaylistParser parser = new XMLPlaylistParser(new MemoryStream(data));
-
-                return parser.Parse(id);
-            }
-            catch (XMLParserException)
-            {
-                return null;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            XMLPlaylistParser parser = new XMLPlaylistParser(new MemoryStream(data));
+            return parser.Parse(id);
         }
         /// <summary>
         /// Parse <code>xml</code> into a <see cref="PlaylistContainer"/> object.

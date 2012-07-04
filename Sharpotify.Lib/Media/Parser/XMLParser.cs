@@ -16,7 +16,6 @@ namespace Sharpotify.Media.Parser
         /// <param name="stream">An <see cref="StreamReader"/> stream to parse.</param>
         protected XMLParser(Stream stream)
         {
-            
             StreamReader r = new StreamReader(stream);
             myXml = r.ReadToEnd();
             byte[] buffer = Encoding.UTF8.GetBytes(myXml);
