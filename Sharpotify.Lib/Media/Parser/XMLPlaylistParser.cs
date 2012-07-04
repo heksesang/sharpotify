@@ -344,11 +344,15 @@ namespace Sharpotify.Media.Parser
         /// Parse <code>xml</code> into an object.
         /// </summary>
         /// <param name="data">The xml as bytes.</param>
-        /// <returns>An object if successful, null if not.</returns>
+        /// <returns>An object.</returns>
         public static object Parse(byte[] data, string id)
         {
-            XMLPlaylistParser parser = new XMLPlaylistParser(new MemoryStream(data));
-            return parser.Parse(id);
+            if (xml.Length == 0)
+            {
+                throw new ArgumentException("The length cannot be 0 bytes.", "xml");
+            }
+
+            return new XMLPlaylistParser(new MemoryStream(data)).Parse(id);
         }
         /// <summary>
         /// Parse <code>xml</code> into a <see cref="PlaylistContainer"/> object.
