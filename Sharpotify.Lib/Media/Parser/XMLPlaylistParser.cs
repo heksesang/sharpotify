@@ -347,7 +347,7 @@ namespace Sharpotify.Media.Parser
         /// <returns>An object.</returns>
         public static object Parse(byte[] data, string id)
         {
-            if (xml.Length == 0)
+            if (data.Length == 0)
             {
                 throw new ArgumentException("The length cannot be 0 bytes.", "xml");
             }
