@@ -64,27 +64,86 @@ namespace Sharpotify.Media
         /// <summary>
         /// Get/Set the albums name.
         /// </summary>
-        public string Name { get { return this._name; } set { this._name = value; } }
+        public string Name {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                this._name = value;
+            }
+        }
         /// <summary>
         /// Get/Set the albums artist.
         /// </summary>
-        public Artist Artist { get { return this._artist; } set { this._artist = value; } }
+        public Artist Artist
+        {
+            get
+            {
+                return this._artist;
+            }
+            set
+            {
+                this._artist = value;
+            }
+        }
         /// <summary>
         /// Get/Set the albums type.
         /// </summary>
-        public string Type { get { return this._type; } set { this._type = value; } }
+        public string Type
+        {
+            get
+            {
+                return this._type;
+            }
+            set
+            {
+                this._type = value;
+            }
+        }
         /// <summary>
         /// Get/Set the albums review.
         /// </summary>
-        public string Review { get { return this._review; } set { this._review = value; } }
+        public string Review
+        {
+            get
+            {
+                return this._review;
+            }
+            set
+            {
+                this._review = value;
+            }
+        }
         /// <summary>
         /// Get/Set discs of this album.
         /// </summary>
-        public List<Disc> Discs { get { return this._discs; } set { this._discs = value; } }
+        public List<Disc> Discs
+        {
+            get 
+            {
+                return this._discs;
+            }
+            set
+            {
+                this._discs = value;
+            }
+        }
         /// <summary>
         /// Get/Set similar albums for this album.
         /// </summary>
-        public List<Album> SimilarAlbums { get { return this._similarAlbums; } set { this._similarAlbums = value; } }
+        public List<Album> SimilarAlbums
+        {
+            get
+            {
+                return this._similarAlbums;
+            }
+            set
+            {
+                this._similarAlbums = value;
+            }
+        }
         /// <summary>
         /// Get/Set the albums release year.
         /// </summary>
