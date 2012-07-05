@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
-
 using Sharpotify.Exceptions;
 
 namespace Sharpotify.Media.Parser
@@ -563,12 +563,6 @@ namespace Sharpotify.Media.Parser
                 {
                     track.AddRedirect(this.GetElementString());
                 }
-                /* TODO: currently skipped. */
-                else if (name.Equals("redirect"))
-                {
-                    /* Skip text. */
-                    this.GetElementString();
-                }
                 else if (name.Equals("title") || name.Equals("name"))
                 {
                     track.Title = this.GetElementString();
@@ -896,18 +890,19 @@ namespace Sharpotify.Media.Parser
                 name = this.reader.LocalName;
 
                 /* Process depending on element name. */
-                if(name.Equals("restriction")){
+                if (name.Equals("restriction"))
+                {
                     restrictions.Add(new Restriction(
-                        GetAttributeString("allowed"),
-                        GetAttributeString("forbidden"),
-                        GetAttributeString("catalogues")
+                        GetAttributeString("allowed").Split(',').Select(r => new RegionInfo(r)).ToList(),
+                        GetAttributeString("forbidden").Split(',').Select(r => new RegionInfo(r)).ToList(),
+                        GetAttributeString("catalogues").Split('c').ToList(),
+                        GetAttributeString("type")
                     ));
-
-                    /* Skip to end element since we only read the attributes. */
-                    //this.Next();
                 }
                 else
+                {
                     throw new XMLParserException("Unexpected element '<" + name + ">'");
+                }
 
                 this.Next();
             }
