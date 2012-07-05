@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -15,29 +16,77 @@ namespace Sharpotify.Media
         /// <summary>
         /// A delimeter separated list of allowed 2-letter country codes.
         /// </summary>
-        private string _allowed;
+        private List<RegionInfo> _allowed;
         /// <summary>
         /// A delimeter separated list of forbidden 2-letter country codes.
         /// </summary>
-        private string _forbidden;
+        private List<RegionInfo> _forbidden;
         /// <summary>
         /// A delimeter separated list of catalogues this restriction applies to.
         /// </summary>
-        private string _catalogues;
+        private List<string> _catalogues;
+        /// <summary>
+        /// The type of content this restriction applies to.
+        /// </summary>
+        private string _type;
         #endregion
         #region Properties
         /// <summary>
         /// Get/Set a delimeter separated list of allowed 2-letter country codes.
         /// </summary>
-        public string Allowed { get { return this._allowed; } set { this._allowed = value; } }
+        public List<RegionInfo> Allowed
+        {
+            get
+            {
+                return this._allowed;
+            }
+            set
+            {
+                this._allowed = value;
+            }
+        }
         /// <summary>
         /// Get/Set a delimeter separated list of forbidden 2-letter country codes.
         /// </summary>
-        public string Forbidden { get { return this._forbidden; } set { this._forbidden = value; } }
+        public List<RegionInfo> Forbidden
+        {
+            get
+            {
+                return this._forbidden;
+            }
+            set
+            {
+                this._forbidden = value;
+            }
+        }
         /// <summary>
         /// Get/Set a delimeter separated list of catalogues this restriction applies to.
         /// </summary>
-        public string Catalogues { get { return this._catalogues; } set { this._catalogues = value; } }
+        public List<string> Catalogues
+        {
+            get
+            {
+                return this._catalogues;
+            }
+            set
+            {
+                this._catalogues = value;
+            }
+        }
+        /// <summary>
+        /// Get/Set the type of content this restriction applies to.
+        /// </summary>
+        public string Type
+        {
+            get
+            {
+                return this._type;
+            }
+            set
+            {
+                this._type = value;
+            }
+        }
         #endregion
         #region Factory
         /// <summary>
@@ -45,9 +94,10 @@ namespace Sharpotify.Media
         /// </summary>
         public Restriction()
         {
-            this._allowed = null;
-            this._forbidden = null;
-            this._catalogues = null;
+            this._allowed = new List<RegionInfo>();
+            this._forbidden = new List<RegionInfo>();
+            this._catalogues = new List<string>();
+            this._type = string.Empty;
         }
         /// <summary>
         /// Create a <see cref="Restriction"/> object with the specified countries and catalogues.
@@ -56,11 +106,13 @@ namespace Sharpotify.Media
         /// <param name="allowed">A delimeter separated list of allowed 2-letter country codes.</param>
         /// <param name="forbidden">A delimeter separated list of forbidden 2-letter country codes.</param>
         /// <param name="catalogues">A delimeter separated list of catalogues this restriction applies to.</param>
-        public Restriction(string allowed, string forbidden, string catalogues)
+        /// <param name="type">The type of content this restriction applies to.</param>
+        public Restriction(List<RegionInfo> allowed, List<RegionInfo> forbidden, List<string> catalogues, string type)
         {
             this.Allowed = allowed;
             this.Forbidden = forbidden;
             this.Catalogues = catalogues;
+            this.Type = type;
         }
         #endregion
         #region Methods
@@ -73,7 +125,7 @@ namespace Sharpotify.Media
         {
             if (country.Length != 2)
                 throw new ArgumentException("Expecting a 2-letter country code.");
-            return this.Allowed != null && this.Allowed.ToLower().Contains(country.ToLower());
+            return this.Allowed != null && this.Allowed.Any(r => r.TwoLetterISORegionName.ToLowerInvariant() == country.ToLowerInvariant());
         }
         /// <summary>
         /// Check if a country is forbidden by this restriction.
@@ -84,7 +136,7 @@ namespace Sharpotify.Media
         {
             if (country.Length != 2)
                 throw new ArgumentException("Expecting a 2-letter country code.");
-            return this.Forbidden != null && this.Forbidden.ToLower().Contains(country.ToLower());
+            return this.Forbidden != null && this.Forbidden.Any(r => r.TwoLetterISORegionName.ToLowerInvariant() == country.ToLowerInvariant());
         }
         /// <summary>
         /// Check if this restriction applies to a specified catalogue.
@@ -93,7 +145,7 @@ namespace Sharpotify.Media
         /// <returns>true if it applies, false otherwise.</returns>
         public bool IsCatalogue(string catalogue)
         {
-            return this.Catalogues != null && this.Catalogues.ToLower().Contains(catalogue.ToLower());
+            return this.Catalogues != null && this.Catalogues.Any(c => c.ToLowerInvariant() == catalogue.ToLowerInvariant());
         }
 
         public override string ToString()
