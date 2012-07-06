@@ -14,6 +14,7 @@
     using System.IO;
     using System.Text;
     using System.Drawing;
+    using System.Globalization;
 
     public class SpotifyConnection : ICommandListener, ISpotify
     {
@@ -1520,7 +1521,7 @@
 
                 case Command.COMMAND_COUNTRYCODE: 
 				    //System.out.println("Country: " + new String(payload, Charset.forName("UTF-8")));
-				    this.user.Country = Encoding.UTF8.GetString(payload);
+                    this.user.Country = new RegionInfo(Encoding.UTF8.GetString(payload));
 
 				    /* Release 'country' permit. */
 				    this.userSemaphore.Release();

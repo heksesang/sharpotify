@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Sharpotify.Util;
@@ -10,15 +11,55 @@ namespace Sharpotify.Media
     {
         #region Fields
         private string _name;
-        private string _country;
+        private RegionInfo _country;
         private string _notification;
         private Dictionary<string, string> _properties;
         #endregion
         #region Properties
-        public string Name { get { return _name; } set { _name = value; } }
-        public string Country { get { return _country; } set { _country = value; } }
-        public string Notification { get { return _notification; } set { _notification = value; } }
-        public Dictionary<string, string> Properties { get { return _properties; } set { _properties = value; } }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+        public RegionInfo Country
+        {
+            get
+            {
+                return _country;
+            }
+            set
+            {
+                _country = value;
+            }
+        }
+        public string Notification
+        {
+            get
+            {
+                return _notification;
+            }
+            set
+            {
+                _notification = value;
+            }
+        }
+        public Dictionary<string, string> Properties 
+        { 
+            get
+            { 
+                return _properties; 
+            } 
+            set
+            {
+                _properties = value; 
+            }
+        }
         public bool IsPremium
         {
             get
@@ -31,7 +72,7 @@ namespace Sharpotify.Media
         public User(string name) : this(name, null, null)
         {
         }
-        public User(string name, string country, string type)
+        public User(string name, RegionInfo country, string type)
         {
             this._name = name;
             this._country = country;
