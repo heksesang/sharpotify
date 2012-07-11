@@ -504,10 +504,8 @@ namespace Sharpotify.Protocol
             byte[] header = (byte[])asyn.AsyncState;
             int command, payloadLength, macLength = 4;
 
-            if (header.Count(b => b == 0) == 3)
-            {
-                throw new ConnectionException("The connection has been closed by the remote host.");
-            }
+            // TODO: Find a good way to implement detection of closed socket here,
+            // so that the function doesn't extrapolate incorrect data from null data.
 
 		    /* Set IV. */
 		    this.session.ShannonRecv.nonce(IntUtils.ToBytes(this.session.KeyRecvIv));
